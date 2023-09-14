@@ -1,5 +1,7 @@
 package com.avovk.randomnumbersprocessor
 
+import java.math.BigDecimal
+
 class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
 
     init {
@@ -24,6 +26,10 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
             right -= 100
         }
         return this
+    }
+
+    fun toBigDecimal(): BigDecimal {
+        return BigDecimal(toString())
     }
 
     fun getLeft() = left
