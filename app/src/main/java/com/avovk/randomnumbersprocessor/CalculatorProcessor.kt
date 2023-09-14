@@ -61,8 +61,8 @@ class CalculatorProcessor(
     }
 
     private fun decreaseMaxRange() {
-        rangeMax -= if ((rangeMax - rangeMin) <= BigDecimal.ONE) {
-            BigDecimal("0.1")
+        rangeMax -= if ((rangeMax - rangeMin) <= BigDecimal.TEN) {
+            BigDecimal("0.05")
         } else {
             BigDecimal.ONE
         }
