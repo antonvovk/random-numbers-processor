@@ -3,6 +3,7 @@ package com.avovk.randomnumbersprocessor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.avovk.randomnumbersprocessor.ui.theme.RandomNumbersProcessorTheme
 import java.math.BigDecimal
+import kotlin.system.measureTimeMillis
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +79,9 @@ fun Calculator(modifier: Modifier = Modifier) {
         mutableStateOf(listOf<DecimalNumber>())
     }
     var actualSumTextValue by remember {
+        mutableStateOf("")
+    }
+    var executionTime by remember {
         mutableStateOf("")
     }
 
@@ -133,28 +138,32 @@ fun Calculator(modifier: Modifier = Modifier) {
         Row(
             modifier.fillMaxWidth()
         ) {
-            Button(onClick = {
-                try {
-                    val processor = CalculatorProcessor(
-                        BigDecimal(rangeMin),
-                        BigDecimal(rangeMax),
-                        amountOfNumbers.toInt(),
-                        desiredSum.toInt()
-                    )
-                    val calculationResult = processor.calculate()
+            Button(
+                onClick = {
+                    executionTime = measureTimeMillis {
+                        try {
+                            val processor = CalculatorProcessor(
+                                BigDecimal(rangeMin),
+                                BigDecimal(rangeMax),
+                                amountOfNumbers.toInt(),
+                                desiredSum.toInt()
+                            )
+                            val calculationResult = processor.calculate()
 
-                    val actualSum = DecimalNumber()
-                    for (resultNumber in calculationResult) {
-                        actualSum.add(resultNumber)
-                    }
+                            val actualSum = DecimalNumber()
+                            for (resultNumber in calculationResult) {
+                                actualSum.add(resultNumber)
+                            }
 
-                    actualSumTextValue = actualSum.toString()
-                    resultNumbers = calculationResult.toList()
-                } catch (e: Exception) {
-                    actualSumTextValue = "Помилка"
-                    resultNumbers = emptyList()
-                }
-            }, modifier = Modifier.weight(1f)) {
+                            actualSumTextValue = actualSum.toString()
+                            resultNumbers = calculationResult.toList()
+                        } catch (e: Exception) {
+                            actualSumTextValue = "Помилка"
+                            resultNumbers = emptyList()
+                        }
+                    }.toString() + " ms"
+                }, modifier = Modifier.weight(1f)
+            ) {
                 Text(text = "Обчислити")
             }
         }
@@ -162,16 +171,21 @@ fun Calculator(modifier: Modifier = Modifier) {
         Row(
             modifier.fillMaxWidth()
         ) {
-            Text(text = "Фактична сума: ", fontWeight = FontWeight.Bold)
-            Text(text = actualSumTextValue, fontWeight = FontWeight.Bold)
+            Text(text = "Фактична сума: $actualSumTextValue", fontWeight = FontWeight.Bold)
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(2.dp))
+        Row(
+            modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Час обчислення: $executionTime", fontWeight = FontWeight.Bold)
+        }
+        Spacer(modifier = Modifier.height(2.dp))
         Row(
             modifier.fillMaxWidth()
         ) {
             Text(text = "Результат: ", fontWeight = FontWeight.Bold)
         }
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(1.dp))
         LazyColumn {
             items(resultNumbers) { resultNumber ->
                 Text(text = resultNumber.toString())
