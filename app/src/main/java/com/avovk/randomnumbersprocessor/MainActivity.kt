@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,8 +73,8 @@ fun Calculator(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
 
-    var resultNumbersTextValue by remember {
-        mutableStateOf("")
+    var resultNumbers by remember {
+        mutableStateOf(listOf<DecimalNumber>())
     }
     var actualSumTextValue by remember {
         mutableStateOf("")
@@ -145,35 +147,34 @@ fun Calculator(modifier: Modifier = Modifier) {
                 val calculationResult = processor.calculate()
 
                 val actualSum = DecimalNumber()
-                val stringBuilder = StringBuilder()
                 for (resultNumber in calculationResult) {
                     actualSum.add(resultNumber)
-                    stringBuilder.append(resultNumber.toString()).append("\n")
                 }
 
                 actualSumTextValue = actualSum.toString()
-                resultNumbersTextValue = stringBuilder.toString()
+                resultNumbers = calculationResult.toList()
             }, modifier = Modifier.weight(1f)) {
                 Text(text = "Обчислити")
             }
         }
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier.fillMaxWidth()
         ) {
             Text(text = "Фактична сума: ", fontWeight = FontWeight.Bold)
             Text(text = actualSumTextValue, fontWeight = FontWeight.Bold)
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier.fillMaxWidth()
         ) {
             Text(text = "Результат: ", fontWeight = FontWeight.Bold)
         }
-        Row(
-            modifier.fillMaxWidth()
-        ) {
-            Text(text = resultNumbersTextValue)
+        Spacer(modifier = Modifier.height(2.dp))
+        LazyColumn {
+            items(resultNumbers) { resultNumber ->
+                Text(text = resultNumber.toString())
+            }
         }
     }
 }
