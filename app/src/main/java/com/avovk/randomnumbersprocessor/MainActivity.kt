@@ -3,7 +3,6 @@ package com.avovk.randomnumbersprocessor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -171,13 +170,13 @@ fun Calculator(modifier: Modifier = Modifier) {
         Row(
             modifier.fillMaxWidth()
         ) {
-            Text(text = "Фактична сума: $actualSumTextValue", fontWeight = FontWeight.Bold)
+            Text(text = "Час обчислення: $executionTime", fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(2.dp))
         Row(
-            modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+            modifier.fillMaxWidth()
         ) {
-            Text(text = "Час обчислення: $executionTime", fontWeight = FontWeight.Bold)
+            Text(text = "Фактична сума: $actualSumTextValue", fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(2.dp))
         Row(
