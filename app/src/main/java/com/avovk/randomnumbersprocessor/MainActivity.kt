@@ -93,9 +93,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 value = rangeMin,
                 onValueChange = { text ->
-                    if (text.isNotBlank()) {
-                        rangeMin = text
-                    }
+                    rangeMin = text
                 })
             Spacer(modifier = Modifier.width(16.dp))
             OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -103,9 +101,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 value = rangeMax,
                 onValueChange = { text ->
-                    if (text.isNotBlank()) {
-                        rangeMax = text
-                    }
+                    rangeMax = text
                 })
         }
         Row(
@@ -116,9 +112,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 value = amountOfNumbers,
                 onValueChange = { text ->
-                    if (text.isNotBlank()) {
-                        amountOfNumbers = text
-                    }
+                    amountOfNumbers = text
                 })
         }
         Row(
@@ -129,9 +123,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 value = desiredSum,
                 onValueChange = { text ->
-                    if (text.isNotBlank()) {
-                        desiredSum = text
-                    }
+                    desiredSum = text
                 })
         }
         Row(
