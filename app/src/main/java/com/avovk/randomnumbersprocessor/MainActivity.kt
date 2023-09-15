@@ -90,6 +90,7 @@ fun Calculator(modifier: Modifier = Modifier) {
         ) {
             OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text("Нижня межа") },
+                singleLine = true,
                 modifier = Modifier.weight(1f),
                 value = rangeMin,
                 onValueChange = { text ->
@@ -98,6 +99,7 @@ fun Calculator(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(16.dp))
             OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text("Верхня межа") },
+                singleLine = true,
                 modifier = Modifier.weight(1f),
                 value = rangeMax,
                 onValueChange = { text ->
@@ -109,6 +111,7 @@ fun Calculator(modifier: Modifier = Modifier) {
         ) {
             OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text("Кількість чисел") },
+                singleLine = true,
                 modifier = Modifier.weight(1f),
                 value = amountOfNumbers,
                 onValueChange = { text ->
@@ -120,6 +123,7 @@ fun Calculator(modifier: Modifier = Modifier) {
         ) {
             OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 label = { Text("Бажана сума") },
+                singleLine = true,
                 modifier = Modifier.weight(1f),
                 value = desiredSum,
                 onValueChange = { text ->
