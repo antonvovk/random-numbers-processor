@@ -134,21 +134,26 @@ fun Calculator(modifier: Modifier = Modifier) {
             modifier.fillMaxWidth()
         ) {
             Button(onClick = {
-                val processor = CalculatorProcessor(
-                    BigDecimal(rangeMin),
-                    BigDecimal(rangeMax),
-                    amountOfNumbers.toInt(),
-                    desiredSum.toInt()
-                )
-                val calculationResult = processor.calculate()
+                try {
+                    val processor = CalculatorProcessor(
+                        BigDecimal(rangeMin),
+                        BigDecimal(rangeMax),
+                        amountOfNumbers.toInt(),
+                        desiredSum.toInt()
+                    )
+                    val calculationResult = processor.calculate()
 
-                val actualSum = DecimalNumber()
-                for (resultNumber in calculationResult) {
-                    actualSum.add(resultNumber)
+                    val actualSum = DecimalNumber()
+                    for (resultNumber in calculationResult) {
+                        actualSum.add(resultNumber)
+                    }
+
+                    actualSumTextValue = actualSum.toString()
+                    resultNumbers = calculationResult.toList()
+                } catch (e: Exception) {
+                    actualSumTextValue = "Помилка"
+                    resultNumbers = emptyList()
                 }
-
-                actualSumTextValue = actualSum.toString()
-                resultNumbers = calculationResult.toList()
             }, modifier = Modifier.weight(1f)) {
                 Text(text = "Обчислити")
             }
