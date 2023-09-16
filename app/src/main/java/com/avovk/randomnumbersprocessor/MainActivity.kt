@@ -186,8 +186,9 @@ fun Calculator(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(1.dp))
         LazyColumn {
+            var counter = 0;
             items(resultNumbers) { resultNumber ->
-                Text(text = resultNumber.toString())
+                Text(text = "${++counter} - $resultNumber")
             }
         }
     }
