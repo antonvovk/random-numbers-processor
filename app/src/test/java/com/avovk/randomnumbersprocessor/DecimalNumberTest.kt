@@ -65,4 +65,38 @@ class DecimalNumberTest {
         assertEquals(54, DecimalNumber.fromString("54.99").getLeft())
         assertEquals(99, DecimalNumber.fromString("54.99").getRight())
     }
+
+    @Test
+    fun testMinus() {
+        assertEquals(
+            "18.30", DecimalNumber.minus(DecimalNumber(23, 56), DecimalNumber(5, 26)).toString()
+        )
+        assertEquals(
+            "17.70", DecimalNumber.minus(DecimalNumber(23, 26), DecimalNumber(5, 56)).toString()
+        )
+        assertEquals(
+            "-17.70", DecimalNumber.minus(DecimalNumber(5, 56), DecimalNumber(23, 26)).toString()
+        )
+        assertEquals(
+            "-18.30", DecimalNumber.minus(DecimalNumber(5, 26), DecimalNumber(23, 56)).toString()
+        )
+        assertEquals(
+            "10.00", DecimalNumber.minus(DecimalNumber(10, 99), DecimalNumber(0, 99)).toString()
+        )
+        assertEquals(
+            "9.99", DecimalNumber.minus(DecimalNumber(10, 0), DecimalNumber(0, 1)).toString()
+        )
+        assertEquals(
+            "-10.00", DecimalNumber.minus(DecimalNumber(0, 99), DecimalNumber(10, 99)).toString()
+        )
+        assertEquals(
+            "-9.99", DecimalNumber.minus(DecimalNumber(0, 1), DecimalNumber(10, 0)).toString()
+        )
+        assertEquals(
+            "0.00", DecimalNumber.minus(DecimalNumber(1, 99), DecimalNumber(1, 99)).toString()
+        )
+        assertEquals(
+            "0.51", DecimalNumber.minus(DecimalNumber(2, 50), DecimalNumber(1, 99)).toString()
+        )
+    }
 }

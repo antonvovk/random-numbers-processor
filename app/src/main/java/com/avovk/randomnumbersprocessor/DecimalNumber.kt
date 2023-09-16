@@ -47,6 +47,7 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
     fun getRight() = right
 
     companion object {
+
         fun fromString(value: String): DecimalNumber {
             val parts = value.split(".", ",")
             return if (parts.size == 2 && parts[1].isNotBlank()) {
@@ -54,6 +55,20 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
             } else {
                 DecimalNumber(parts[0].toInt(), 0)
             }
+        }
+
+        fun minus(a: DecimalNumber, b: DecimalNumber): DecimalNumber {
+            var leftPart = a.getLeft() - b.getLeft()
+            var rightPart = a.getRight() - b.getRight()
+            if (rightPart < 0) {
+                leftPart -= 1
+                rightPart += 100
+            }
+            if (leftPart < 0 && rightPart != 0) {
+                leftPart += 1
+                rightPart = 100 - rightPart
+            }
+            return DecimalNumber(leftPart, rightPart)
         }
     }
 }

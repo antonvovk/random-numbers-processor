@@ -13,7 +13,7 @@ class CalculatorProcessorTest {
             val rangeMin = BigDecimal("23")
             val rangeMax = BigDecimal("24")
             val amountOfNumbers = 3
-            val desiredSum = 70
+            val desiredSum = "70"
             val calculatorProcessor =
                 CalculatorProcessor(rangeMin, rangeMax, amountOfNumbers, desiredSum)
             val result = calculatorProcessor.calculate()
@@ -27,7 +27,7 @@ class CalculatorProcessorTest {
                 assertTrue(number.toBigDecimal() <= rangeMax)
             }
 
-            assertEquals(desiredSum.toString(), actualSum.getLeft().toString())
+            assertEquals(desiredSum, actualSum.getLeft().toString())
             assertEquals(0, actualSum.getRight())
         }
     }
@@ -38,7 +38,7 @@ class CalculatorProcessorTest {
             val rangeMin = BigDecimal("20")
             val rangeMax = BigDecimal("22")
             val amountOfNumbers = 5
-            val desiredSum = 105
+            val desiredSum = "105"
             val calculatorProcessor =
                 CalculatorProcessor(rangeMin, rangeMax, amountOfNumbers, desiredSum)
             val result = calculatorProcessor.calculate()
@@ -52,7 +52,7 @@ class CalculatorProcessorTest {
                 assertTrue(number.toBigDecimal() <= rangeMax)
             }
 
-            assertEquals(desiredSum.toString(), actualSum.getLeft().toString())
+            assertEquals(desiredSum, actualSum.getLeft().toString())
             assertEquals(0, actualSum.getRight())
         }
     }
@@ -63,7 +63,7 @@ class CalculatorProcessorTest {
             val rangeMin = BigDecimal("22")
             val rangeMax = BigDecimal("24")
             val amountOfNumbers = 9
-            val desiredSum = 210
+            val desiredSum = "210"
             val calculatorProcessor =
                 CalculatorProcessor(rangeMin, rangeMax, amountOfNumbers, desiredSum)
             val result = calculatorProcessor.calculate()
@@ -77,7 +77,7 @@ class CalculatorProcessorTest {
                 assertTrue(number.toBigDecimal() <= rangeMax)
             }
 
-            assertEquals(desiredSum.toString(), actualSum.getLeft().toString())
+            assertEquals(desiredSum, actualSum.getLeft().toString())
             assertEquals(0, actualSum.getRight())
         }
     }
