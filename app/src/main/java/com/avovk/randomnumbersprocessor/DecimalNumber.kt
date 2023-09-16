@@ -18,6 +18,16 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (other == null) {
+            return false
+        }
+        if (other !is DecimalNumber) {
+            return false
+        }
+        return left == other.left && right == other.right
+    }
+
     fun add(value: DecimalNumber): DecimalNumber {
         left += value.left
         right += value.right
@@ -35,4 +45,15 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
     fun getLeft() = left
 
     fun getRight() = right
+
+    companion object {
+        fun fromString(value: String): DecimalNumber {
+            val parts = value.split(".", ",")
+            return if (parts.size == 2 && parts[1].isNotBlank()) {
+                DecimalNumber(parts[0].toInt(), parts[1].toInt())
+            } else {
+                DecimalNumber(parts[0].toInt(), 0)
+            }
+        }
+    }
 }
