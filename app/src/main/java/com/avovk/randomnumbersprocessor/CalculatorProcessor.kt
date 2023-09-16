@@ -8,17 +8,19 @@ class CalculatorProcessor(
     rangeMin: BigDecimal,
     rangeMax: BigDecimal,
     private val amountOfNumbers: Int,
-    private val desiredSum: Int
+    desiredSum: String
 ) {
 
     private val rangeMin: BigDecimal
     private var rangeMax: BigDecimal
     private val initialRangeMax: BigDecimal
+    private val desiredSum: DecimalNumber
 
     init {
         this.rangeMin = rangeMin.setScale(2, RoundingMode.HALF_UP)
         this.rangeMax = rangeMax.setScale(2, RoundingMode.HALF_UP)
         this.initialRangeMax = rangeMax.setScale(2, RoundingMode.HALF_UP)
+        this.desiredSum = DecimalNumber.fromString(desiredSum)
     }
 
     fun calculate(): Array<DecimalNumber> {
@@ -36,7 +38,7 @@ class CalculatorProcessor(
             result[amountOfNumbers - 1] = lastNumber
             currentSum.add(lastNumber)
 
-            if (currentSum.getLeft() == desiredSum && currentSum.getRight() == 0) {
+            if (currentSum == desiredSum) {
                 return result
             } else {
                 decreaseMaxRange()
@@ -59,9 +61,9 @@ class CalculatorProcessor(
     }
 
     private fun calculateLastNumber(currentSum: DecimalNumber): DecimalNumber {
-        var leftPart =
-            if (currentSum.getRight() == 0) desiredSum - currentSum.getLeft() else desiredSum - currentSum.getLeft() - 1
-        var rightPart = if (currentSum.getRight() == 0) 0 else 100 - currentSum.getRight()
+        val diff = DecimalNumber.minus(desiredSum, currentSum)
+        var leftPart = diff.getLeft()
+        var rightPart = diff.getRight()
 
         if (leftPart > initialRangeMax.toInt()) {
             leftPart = initialRangeMax.toInt()

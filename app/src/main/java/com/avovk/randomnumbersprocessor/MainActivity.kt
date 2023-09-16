@@ -145,7 +145,7 @@ fun Calculator(modifier: Modifier = Modifier) {
                                 BigDecimal(rangeMin),
                                 BigDecimal(rangeMax),
                                 amountOfNumbers.toInt(),
-                                desiredSum.toInt()
+                                desiredSum
                             )
                             val calculationResult = processor.calculate()
 
