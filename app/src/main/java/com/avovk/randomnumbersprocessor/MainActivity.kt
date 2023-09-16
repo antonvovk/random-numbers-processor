@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -186,9 +186,8 @@ fun Calculator(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(1.dp))
         LazyColumn {
-            var counter = 0;
-            items(resultNumbers) { resultNumber ->
-                Text(text = "${++counter} - $resultNumber")
+            itemsIndexed(resultNumbers) { index, resultNumber ->
+                Text(text = "${index + 1} - $resultNumber")
             }
         }
     }
