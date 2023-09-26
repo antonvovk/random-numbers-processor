@@ -31,7 +31,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.avovk.randomnumbersprocessor.ui.theme.RandomNumbersProcessorTheme
-import java.math.BigDecimal
 import kotlin.system.measureTimeMillis
 
 class MainActivity : ComponentActivity() {
@@ -142,8 +141,8 @@ fun Calculator(modifier: Modifier = Modifier) {
                     executionTime = measureTimeMillis {
                         try {
                             val processor = CalculatorProcessor(
-                                BigDecimal(rangeMin),
-                                BigDecimal(rangeMax),
+                                rangeMin,
+                                rangeMax,
                                 amountOfNumbers.toInt(),
                                 desiredSum
                             )

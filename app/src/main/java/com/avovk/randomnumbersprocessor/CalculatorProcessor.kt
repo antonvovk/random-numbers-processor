@@ -5,21 +5,25 @@ import java.math.RoundingMode
 import kotlin.random.Random
 
 class CalculatorProcessor(
-    rangeMin: BigDecimal,
-    rangeMax: BigDecimal,
+    rangeMin: String,
+    rangeMax: String,
     private val amountOfNumbers: Int,
     desiredSum: String
 ) {
 
-    private val rangeMin: BigDecimal
+    private var rangeMin: BigDecimal
     private var rangeMax: BigDecimal
+    private val initialRangeMin: BigDecimal
     private val initialRangeMax: BigDecimal
+    private val initialRangeMaxDecimalNumber: DecimalNumber
     private val desiredSum: DecimalNumber
 
     init {
-        this.rangeMin = rangeMin.setScale(2, RoundingMode.HALF_UP)
-        this.rangeMax = rangeMax.setScale(2, RoundingMode.HALF_UP)
-        this.initialRangeMax = rangeMax.setScale(2, RoundingMode.HALF_UP)
+        this.rangeMin = BigDecimal(rangeMin).setScale(2, RoundingMode.HALF_UP)
+        this.rangeMax = BigDecimal(rangeMax).setScale(2, RoundingMode.HALF_UP)
+        this.initialRangeMin = this.rangeMin.setScale(2, RoundingMode.HALF_UP)
+        this.initialRangeMax = this.rangeMax.setScale(2, RoundingMode.HALF_UP)
+        this.initialRangeMaxDecimalNumber = DecimalNumber.fromString(rangeMax)
         this.desiredSum = DecimalNumber.fromString(desiredSum)
     }
 
@@ -40,6 +44,8 @@ class CalculatorProcessor(
 
             if (currentSum == desiredSum) {
                 return result
+            } else if (lastNumber == initialRangeMaxDecimalNumber) {
+                increaseMinRange()
             } else {
                 decreaseMaxRange()
                 if (rangeMax == rangeMin) {
@@ -68,8 +74,8 @@ class CalculatorProcessor(
         if (leftPart > initialRangeMax.toInt()) {
             leftPart = initialRangeMax.toInt()
         }
-        if (leftPart < rangeMin.toInt()) {
-            leftPart = rangeMin.toInt()
+        if (leftPart < initialRangeMin.toInt()) {
+            leftPart = initialRangeMin.toInt()
         }
 
         if (leftPart == initialRangeMax.toInt() && rightPart > 0) {
@@ -81,6 +87,14 @@ class CalculatorProcessor(
 
     private fun decreaseMaxRange() {
         rangeMax -= if ((rangeMax - rangeMin) <= BigDecimal.TEN) {
+            BigDecimal("0.01")
+        } else {
+            BigDecimal.ONE
+        }
+    }
+
+    private fun increaseMinRange() {
+        rangeMin += if ((rangeMax - rangeMin) <= BigDecimal.TEN) {
             BigDecimal("0.01")
         } else {
             BigDecimal.ONE
