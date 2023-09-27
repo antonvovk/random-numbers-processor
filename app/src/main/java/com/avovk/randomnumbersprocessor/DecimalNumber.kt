@@ -51,7 +51,11 @@ class DecimalNumber(private var left: Int = 0, private var right: Int = 0) {
         fun fromString(value: String): DecimalNumber {
             val parts = value.split(".", ",")
             return if (parts.size == 2 && parts[1].isNotBlank()) {
-                DecimalNumber(parts[0].toInt(), parts[1].toInt())
+                if (parts[1].length == 1) {
+                    DecimalNumber(parts[0].toInt(), parts[1].toInt() * 10)
+                } else {
+                    DecimalNumber(parts[0].toInt(), parts[1].toInt())
+                }
             } else {
                 DecimalNumber(parts[0].toInt(), 0)
             }

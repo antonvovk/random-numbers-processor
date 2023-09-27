@@ -64,6 +64,15 @@ class DecimalNumberTest {
         assertEquals(23, DecimalNumber.fromString("70.23").getRight())
         assertEquals(54, DecimalNumber.fromString("54.99").getLeft())
         assertEquals(99, DecimalNumber.fromString("54.99").getRight())
+
+        assertEquals(71, DecimalNumber.fromString("71.0").getLeft())
+        assertEquals(0, DecimalNumber.fromString("71.0").getRight())
+        assertEquals(71, DecimalNumber.fromString("71.8").getLeft())
+        assertEquals(80, DecimalNumber.fromString("71.8").getRight())
+        assertEquals(71, DecimalNumber.fromString("71.80").getLeft())
+        assertEquals(80, DecimalNumber.fromString("71.80").getRight())
+        assertEquals(71, DecimalNumber.fromString("71.08").getLeft())
+        assertEquals(8, DecimalNumber.fromString("71.08").getRight())
     }
 
     @Test
